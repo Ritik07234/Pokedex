@@ -22,16 +22,20 @@ function PokemonList(){
         setPrevUrl(response.data.previous);
 
         const pokemonResultPromise=pokemonResults.map((pokemon)=>axios.get(pokemon.url));
+        //console.log(pokemonResultPromise);
         const pokemonData=await axios.all(pokemonResultPromise);
+
+        console.log(pokemonData);
         
         const res=pokemonData.map((pokeData) => {
             const pokemon = pokeData.data;
             return {
                 id:pokemon.id,
                 name:pokemon.name,
-                image: (pokemon.sprites.other && pokemon.sprites.other.dream_world.front_default) || pokemon.sprites.front_shiny,
+                image: (pokemon.sprites.front_shiny)?pokemon.sprites.front_shiny:pokemon.sprites.other.dream_world.front_default,
                 types:pokemon.types}
         });
+
         setPokemonList(res)
         setIsLoading(false);
     }
@@ -44,11 +48,11 @@ function PokemonList(){
     return (
             <div className="Pokemon-list-wrapper">
                 <div className="pokemon-wrapper">
-                {(isLoading)?'Loading...':pokemonList.map((p) => <Pokemon name={p.name} image={p.image} key={p.id}/>)}
+                {(isLoading)?'Loading...':pokemonList.map((p) => <Pokemon name={p.name} image={p.image} key={p.id} id={p.id}/>)}
                 </div>
                 <div className="controls">
-                    <button disabled={prevUrl===undefined} onClick={()=>setPokedexUrl(prevUrl)}>prev</button>
-                    <button disabled={nextUrl===undefined} onClick={()=>setPokedexUrl(nextUrl)}>next</button>
+                    <button disabled={prevUrl==undefined} onClick={()=>setPokedexUrl(prevUrl)}>prev</button>
+                    <button disabled={nextUrl==undefined} onClick={()=>setPokedexUrl(nextUrl)}>next</button>
                 </div>
                 
             </div>

@@ -5,13 +5,14 @@
     align-items: center;
 }
 .pokemon-wrapper{
+    border: 10px solid yellow;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
     background-color: rgb(43, 226, 220)
-
+    
 }
 
 .controls button{

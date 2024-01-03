@@ -1,9 +1,15 @@
 import './Pokemon.css';
-function Pokemon({name,image}){
+import { Link } from 'react-router-dom';
+function Pokemon({name,image,id}){
     return(
+        
         <div className='pokemon'>
-            <div className='name'>{name}</div>
-            <div><img src={image}/></div>
+            <Link to={`/pokemon/${id}`}>
+                <div>
+                    <img className='pokemon-image' src={image}/>
+                </div>
+                <div className='name'>{name}</div>
+            </Link>
         </div>
     )
 }
